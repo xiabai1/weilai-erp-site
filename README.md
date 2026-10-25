@@ -2,6 +2,7 @@
 
 装修公司全流程管理系统的产品宣传页。纯静态单页（HTML + CSS + 原生 JS），无构建步骤。
 
+**仓库**:Gitee `tang-yingjie0/weilai-erp-site`(主) + GitHub `xiabai1/weilai-erp-site`(发布/备份)
 **线上地址**：https://xiabai1.github.io/weilai-erp-site/ （正式域名 蔚来智居.中国 的指向待定，见下方「部署位置」）
 
 ## 目录结构
@@ -23,10 +24,19 @@ tools/og_gen.py     分享图生成脚本（python3 tools/og_gen.py，需 pillow
 - `formEndpoint`：试用申请提交接口（POST JSON）。留空 = 仅在本机 localStorage 暂存（key：`njwz_trial_leads`）；
   ERP 的 `POST /api/public/lead` 上线后填入即可（注意按交接文档 A6 对字段：type/name/phone/email/content）
 
-## 流水线（推送即部署）
+## 流水线（双远端）
 
-仓库启用 GitHub Pages（分支部署）：**push 到 `main` 自动发布**，约 1 分钟生效，无构建步骤。
-查看发布状态：仓库 → Settings → Pages，或 `gh api repos/xiabai1/weilai-erp-site/pages`。
+```bash
+git push origin main   # Gitee 主仓库,代码托管稳定
+git push github main   # GitHub 同步 → Pages 自动重新发布(~1 分钟)
+# 或一步到位:./tools/deploy.sh
+```
+
+- **GitHub Pages** 已启用分支部署,push 到 `github main` 即发布,线上地址见顶部
+- **Gitee Pages**(可选,给国内访客):在 Gitee 仓库「服务 → Gitee Pages」开通后,
+  每次推送跑 `GITEE_TOKEN=令牌 ./tools/gitee_pages_update.sh` 触发构建(免费版不自动更新)
+- 安装包托管在 **GitHub Release**(tag `installers`);Gitee 附件单文件限 100MB,
+  放不下 124MB 的 APK,正式上线前统一迁到阿里云 OSS
 
 正式域名解析到 Pages 或改走阿里云 OSS + CDN 时，同步修改：
 `index.html` 里 canonical / og:url / og:image 三处 + `robots.txt` + `sitemap.xml`（HTML 顶部有 TODO 注释）。
