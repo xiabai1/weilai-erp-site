@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+
+# 本地测试产物（截图/录屏等），不进仓库
+output/
+
+# 安装包体积大（~230MB），不进 git：
+# 通过 GitHub Release 资产分发，见 README「更新安装包」
+downloads/
+
+# 系统杂项
+*.log

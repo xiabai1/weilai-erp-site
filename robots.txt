@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# 正式域名：蔚来智居.中国
+Sitemap: https://xn--igt70veuae38f.xn--fiqs8s/sitemap.xml
