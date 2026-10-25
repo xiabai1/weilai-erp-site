@@ -31,6 +31,11 @@ tools/og_gen.py     分享图生成脚本（python3 tools/og_gen.py，需 pillow
 正式域名解析到 Pages 或改走阿里云 OSS + CDN 时，同步修改：
 `index.html` 里 canonical / og:url / og:image 三处 + `robots.txt` + `sitemap.xml`（HTML 顶部有 TODO 注释）。
 
+**网络受限时的备用通道**：github.com 直连不稳时，`git push` 会超时；
+可改用 `python3 tools/api_push.py "提交说明"`（走 api.github.com 的 Git Data API，内容等价）。
+走备用通道后本地与远端提交历史会分叉，直连恢复后执行
+`git fetch origin && git reset origin/main` 对齐（工作区文件不受影响）。
+
 ## 更新安装包
 
 安装包不进 git（单个 100MB+），以 **GitHub Release 资产**分发，页面下载链接指向 Release：
